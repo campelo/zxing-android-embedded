@@ -150,17 +150,12 @@ public class CaptureManager {
             // previously locked to.
             this.orientationLock = savedInstanceState.getInt(SAVED_ORIENTATION_LOCK, ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
-
-        if(intent != null) {
-            if (orientationLock == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
-                // Only lock the orientation if it's not locked to something else yet
-                boolean orientationLocked = intent.getBooleanExtra(Intents.Scan.ORIENTATION_LOCKED, true);
-
-                if (orientationLocked) {
-                    lockOrientation();
-                }
+            // Only lock the orientation if it's not locked to something else yet
+            boolean orientationLocked = intent.getBooleanExtra(Intents.Scan.ORIENTATION_LOCKED, true);
+            if (orientationLocked) {
+                lockOrientation();
             }
-
+			
             if (Intents.Scan.ACTION.equals(intent.getAction())) {
                 barcodeView.initializeFromIntent(intent);
             }
